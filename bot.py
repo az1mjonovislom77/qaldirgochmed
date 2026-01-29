@@ -1,4 +1,5 @@
 import asyncio
+from decouple import config
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters import Command
 from datetime import datetime
@@ -6,7 +7,7 @@ import requests
 import json
 import os
 
-BOT_TOKEN = "8532912013:AAEzAYWGo1RuxW5BoaLdmE3bQL-n8UcQ-EI"
+BOT_TOKEN = config('BOT_TOKEN')
 API_URL_ALL = "https://api.profmedmax.uz/waitlist/waitlist/"
 API_URL_DAILY = "https://api.profmedmax.uz/waitlist/daily_waitlist/"
 USERS_FILE = "allowed_users.json"
