@@ -1,0 +1,74 @@
+from drf_spectacular.utils import extend_schema
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from user.serializers.auth_serializers import SignInSerializer, LogoutSerializer
+from user.services.token_service import UserTokenService
+from user.utils import get_client_ip, check_login_rate_limit, reset_login_rate_limit
+
+
+@extend_schema(tags=["Auth"])
+class SignInAPIView(APIView):
+    authentication_classes = []
+    serializer_class = SignInSerializer
+
+    def post(self, request):
+        ip = get_client_ip(request)
+        phone = request.data.get("phone_number", "unknown")
+
+        if not check_login_rate_limit(ip, phone):
+            return Response({"detail": "Too many login attempts. Try again later."},
+                            status=status.HTTP_429_TOO_MANY_REQUESTS)
+
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data["user"]
+
+        tokens = UserTokenService.get_tokens_for_user(user)
+
+        response = Response(
+            {
+                "success": True,
+                "message": "User logged in successfully",
+                "data": {"access": tokens["access"]}
+            }, status=status.HTTP_200_OK
+        )
+
+        UserTokenService.set_refresh_cookie(response, tokens["refresh"])
+
+        reset_login_rate_limit(ip, phone)
+
+        return response
+
+
+@extend_schema(tags=["Auth"])
+class RefreshTokenAPIView(APIView):
+    authentication_classes = []
+
+    def post(self, request):
+        refresh_token = request.COOKIES.get(UserTokenService.COOKIE_NAME)
+
+        if not refresh_token:
+            return Response({"detail": "Refresh token not found"}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            access = str(UserTokenService.get_tokens_for_user_from_refresh(refresh_token))
+            return Response({"access": access})
+
+        except Exception:
+            return Response({"detail": "Invalid or expired refresh token"}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+@extend_schema(tags=["Auth"])
+class LogOutAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = LogoutSerializer
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        response = Response({"detail": "Successfully logged out"}, status=status.HTTP_204_NO_CONTENT)
+        UserTokenService.clear_refresh_cookie(response)
+        return response
