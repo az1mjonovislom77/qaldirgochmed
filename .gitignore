@@ -6,7 +6,13 @@ venv/
 *.pyc
 __pycache__/
 
+# Database
+*.sqlite3
+
+staticfiles/
+
 # Media and Static files
+media/
 static_collected/ # If you collect static files here
 
 # Environment variables and sensitive data
@@ -20,3 +26,4 @@ settings_local.py # Or any other file containing local/sensitive settings
 .DS_Store
 .idea/
 .vscode/
+Thumbs.db
