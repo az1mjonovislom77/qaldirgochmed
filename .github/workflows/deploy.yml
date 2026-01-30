@@ -24,7 +24,7 @@ jobs:
 
            cd ${{ secrets.PROJECT_PATH }}
 
-           git config --global --add safe.directory /home/hikvision
+           git config --global --add safe.directory /home/qaldirgochmed
 
            echo "📥 Pulling latest code..."
            git pull origin main
