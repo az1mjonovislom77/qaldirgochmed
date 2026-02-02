@@ -27,6 +27,13 @@ class AboutClinicSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class AllUtilsGetSerializer(serializers.Serializer):
+    home_page_stats = HomePageStatsSerializer(many=True)
+    social_media = SocialMediaSerializer(many=True)
+    location = LocationSerializer(many=True)
+    about_clinic = AboutClinicSerializer(many=True)
+
+
 class FooterImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = FooterImage

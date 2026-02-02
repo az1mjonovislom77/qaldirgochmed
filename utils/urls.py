@@ -1,6 +1,6 @@
 from django.urls import path, include
 from .views import HomePageStatsViewSet, SocialMediaViewSet, LocationViewSet, AboutClinicViewSet, FooterImageViewSet, \
-    FooterPageViewSet, TerapyViewSet, TypeTerapyViewSet
+    FooterPageViewSet, TerapyViewSet, TypeTerapyViewSet, AllUtilsGetAPIView
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
@@ -14,5 +14,6 @@ router.register('terapy', TerapyViewSet)
 router.register('typeterapy', TypeTerapyViewSet)
 
 urlpatterns = [
-    path('', include(router.urls))
+    path('', include(router.urls)),
+    path('all_utils/', AllUtilsGetAPIView.as_view())
 ]
