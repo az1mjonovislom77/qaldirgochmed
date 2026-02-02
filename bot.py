@@ -8,8 +8,8 @@ import json
 import os
 
 BOT_TOKEN = config('BOT_TOKEN')
-API_URL_ALL = "https://api.profmedmax.uz/waitlist/waitlist/"
-API_URL_DAILY = "https://api.profmedmax.uz/waitlist/daily_waitlist/"
+API_URL_ALL = "https://api.qaldirgochmed.uz/waitlist/waitlist/"
+API_URL_DAILY = "https://api.qaldirgochmed.uz/waitlist/daily_waitlist/"
 USERS_FILE = "allowed_users.json"
 
 bot = Bot(token=BOT_TOKEN)
