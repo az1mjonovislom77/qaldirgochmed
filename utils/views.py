@@ -1,7 +1,6 @@
 from drf_spectacular.utils import extend_schema
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
 from utils.base.views_base import BaseUserViewSet
 from utils.models import HomepageStats, SocialMedia, Location, AboutClinic, FooterImage, FooterPage, Terapy, TypeTerapy
 from utils.serializers import HomePageStatsSerializer, SocialMediaSerializer, LocationSerializer, \
@@ -55,6 +54,7 @@ class TerapyViewSet(BaseUserViewSet):
 class TypeTerapyViewSet(BaseUserViewSet):
     queryset = TypeTerapy.objects.all()
     serializer_class = TypeTerapySerializer
+
 
 @extend_schema(tags=["AllUtils"])
 class AllUtilsGetAPIView(APIView):
