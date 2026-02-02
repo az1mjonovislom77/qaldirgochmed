@@ -56,7 +56,7 @@ class TypeTerapyViewSet(BaseUserViewSet):
     queryset = TypeTerapy.objects.all()
     serializer_class = TypeTerapySerializer
 
-
+@extend_schema(tags=["AllUtils"])
 class AllUtilsGetAPIView(APIView):
     def get(self, request):
         data = {
