@@ -22,6 +22,3 @@ class Stickers(models.Model):
     stickers = models.ImageField(upload_to='stickers/', validators=[FileExtensionValidator(
         allowed_extensions=['jpg', 'jpeg', 'png', 'svg', 'webp', 'JPG', 'JPEG', 'PNG', 'SVG', 'WEBP']),
         check_image_size], blank=True, null=True)
-
-    def __str__(self):
-        return self.doctor
