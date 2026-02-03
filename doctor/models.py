@@ -24,4 +24,4 @@ class Stickers(models.Model):
         check_image_size], blank=True, null=True)
 
     def __str__(self):
-        return str(self.doctor.id)
+        return self.doctor
