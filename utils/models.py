@@ -91,4 +91,4 @@ class AboutClinic(models.Model):
     work_time = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.email
+        return ", ".join(self.email)
