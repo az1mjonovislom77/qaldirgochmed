@@ -7,6 +7,12 @@ from category.utils import check_image_size
 class Category(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(max_length=500)
+    full_description = models.TextField(null=True, blank=True)
+    benefits = models.JSONField(null=True, blank=True)
+    symptoms = models.JSONField(null=True, blank=True)
+    procedures = models.JSONField(null=True, blank=True)
+    price = models.CharField(max_length=250)
+    duration = models.CharField(max_length=250)
     slug = models.SlugField(max_length=200, unique=True, blank=True)
     image = models.ImageField(upload_to='category/', validators=[
         FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png', 'svg', 'webp']), check_image_size],
