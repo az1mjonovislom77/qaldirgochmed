@@ -12,7 +12,7 @@ class Doctor(models.Model):
         allowed_extensions=['jpg', 'jpeg', 'png', 'svg', 'webp', 'JPG', 'JPEG', 'PNG', 'SVG', 'WEBP']),
         check_image_size], blank=True, null=True)
     specialties = models.JSONField(blank=True, null=True)
-    education = models.JSONField(max_length=200, null=True, blank=True)
+    education = models.CharField(max_length=500, null=True, blank=True)
     works = models.JSONField(null=True, blank=True)
     services = models.JSONField(null=True, blank=True)
     achievements = models.JSONField(null=True, blank=True)
