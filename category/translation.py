@@ -5,7 +5,7 @@ from .models import Category, PriceList, Consultation
 
 @register(Category)
 class CategoryTranslation(TranslationOptions):
-    fields = ('name', 'description')
+    fields = ('name', 'description', 'full_description', 'benefits', 'symptoms', 'procedures')
 
 
 @register(PriceList)

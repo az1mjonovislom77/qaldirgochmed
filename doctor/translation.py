@@ -4,4 +4,5 @@ from .models import Doctor
 
 @register(Doctor)
 class DoctorTranslation(TranslationOptions):
-    fields = ('full_name', 'profession', 'education', 'works')
+    fields = ('full_name', 'profession', 'institution', 'specialties', 'education', 'works', 'services', 'achievements',
+              'full_bio')
